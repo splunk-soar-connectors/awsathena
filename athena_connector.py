@@ -213,7 +213,8 @@ class AthenaConnector(BaseConnector):
         kms_key = self.get_config().get('kms_key')
 
         if not s3.startswith('s3://'):
-            return action_result.set_status(phantom.APP_ERROR, "The S3 location does not appear to be correctly formatted. It should start with 's3://'")
+            return action_result.set_status(phantom.APP_ERROR, "The S3 location does not appear to be correctly formatted. "
+                                                               "It should start with 's3://'")
 
         location_json = {'OutputLocation': s3}
 
@@ -250,7 +251,8 @@ class AthenaConnector(BaseConnector):
             ret_val, response = self._make_boto_call(action_result, 'start_query_execution', QueryString=query,
                     ResultConfiguration=location_json, QueryExecutionContext={'Database': database})
         else:
-            ret_val, response = self._make_boto_call(action_result, 'start_query_execution', QueryString=query, ResultConfiguration=location_json)
+            ret_val, response = self._make_boto_call(action_result, 'start_query_execution', QueryString=query,
+                                                     ResultConfiguration=location_json)
 
         if (phantom.is_fail(ret_val)):
             return ret_val
