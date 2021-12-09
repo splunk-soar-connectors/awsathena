@@ -15,18 +15,19 @@
 #
 #
 # Phantom App imports
+import ast
+import json
+import re
+import time
+
 import phantom.app as phantom
-from phantom.base_connector import BaseConnector
+from boto3 import Session, client
+from botocore.config import Config
 from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
 
 # Usage of the consts file is recommended
 import athena_consts as consts
-import time
-import json
-import re
-from boto3 import client, Session
-from botocore.config import Config
-import ast
 
 
 class RetVal(tuple):
@@ -318,6 +319,7 @@ class AthenaConnector(BaseConnector):
 if __name__ == '__main__':
 
     import sys
+
     # import pudb
     # pudb.set_trace()
 
