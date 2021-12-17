@@ -3,5 +3,5 @@
 
 **Version 2.2.2 - Released December 17, 2021**
 
-* FIPS Compliance - Mark as compliant [PAPP-22659]
+* For Flag true - Marked the app as FIPS Compliant [PAPP-22659]
 
