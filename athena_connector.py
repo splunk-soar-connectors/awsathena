@@ -1,21 +1,33 @@
 # File: athena_connector.py
+#
 # Copyright (c) 2017-2021 Splunk Inc.
 #
-# Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)
-
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under
+# the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+# either express or implied. See the License for the specific language governing permissions
+# and limitations under the License.
+#
+#
 # Phantom App imports
+import ast
+import json
+import re
+import time
+
 import phantom.app as phantom
-from phantom.base_connector import BaseConnector
+from boto3 import Session, client
+from botocore.config import Config
 from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
 
 # Usage of the consts file is recommended
 import athena_consts as consts
-import time
-import json
-import re
-from boto3 import client, Session
-from botocore.config import Config
-import ast
 
 
 class RetVal(tuple):
@@ -201,7 +213,8 @@ class AthenaConnector(BaseConnector):
         kms_key = self.get_config().get('kms_key')
 
         if not s3.startswith('s3://'):
-            return action_result.set_status(phantom.APP_ERROR, "The S3 location does not appear to be correctly formatted. It should start with 's3://'")
+            return action_result.set_status(phantom.APP_ERROR, "The S3 location does not appear to be correctly formatted. "
+                                                               "It should start with 's3://'")
 
         location_json = {'OutputLocation': s3}
 
@@ -238,7 +251,8 @@ class AthenaConnector(BaseConnector):
             ret_val, response = self._make_boto_call(action_result, 'start_query_execution', QueryString=query,
                     ResultConfiguration=location_json, QueryExecutionContext={'Database': database})
         else:
-            ret_val, response = self._make_boto_call(action_result, 'start_query_execution', QueryString=query, ResultConfiguration=location_json)
+            ret_val, response = self._make_boto_call(action_result, 'start_query_execution', QueryString=query,
+                                                     ResultConfiguration=location_json)
 
         if (phantom.is_fail(ret_val)):
             return ret_val
@@ -307,6 +321,7 @@ class AthenaConnector(BaseConnector):
 if __name__ == '__main__':
 
     import sys
+
     # import pudb
     # pudb.set_trace()
 
