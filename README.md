@@ -11,7 +11,7 @@ Minimum Product Version: 4\.9\.39220
 This app supports investigative actions on AWS Athena
 
 [comment]: # " File: readme.md"
-[comment]: # "  Copyright (c) 2017-2021 Splunk Inc."
+[comment]: # "  Copyright (c) 2017-2024 Splunk Inc."
 [comment]: # ""
 [comment]: # "  Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)"
 [comment]: # ""
