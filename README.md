@@ -2,15 +2,15 @@
 # AWS Athena
 
 Publisher: Splunk  
-Connector Version: 2\.2\.6  
+Connector Version: 2.2.8  
 Product Vendor: AWS  
 Product Name: Athena  
-Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 4\.9\.39220  
+Product Version Supported (regex): ".\*"  
+Minimum Product Version: 6.1.1  
 
 This app supports investigative actions on AWS Athena
 
-[comment]: # " File: readme.md"
+[comment]: # " File: README.md"
 [comment]: # "  Copyright (c) 2017-2024 Splunk Inc."
 [comment]: # ""
 [comment]: # "  Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)"
@@ -47,11 +47,11 @@ The below configuration variables are required for this Connector to operate.  T
 
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
-**access\_key** |  optional  | password | AWS Access Key
-**secret\_key** |  optional  | password | AWS Secret Key
+**access_key** |  optional  | password | AWS Access Key
+**secret_key** |  optional  | password | AWS Secret Key
 **region** |  required  | string | Default Region
-**kms\_key** |  optional  | password | KMS key
-**use\_role** |  optional  | boolean | Use attached role when running Phantom in EC2
+**kms_key** |  optional  | password | KMS key
+**use_role** |  optional  | boolean | Use attached role when running Phantom in EC2
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration  
@@ -82,27 +82,33 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.data\.\*\.NamedQuery\.Database | string | 
-action\_result\.data\.\*\.NamedQuery\.Description | string | 
-action\_result\.data\.\*\.NamedQuery\.Name | string | 
-action\_result\.data\.\*\.NamedQuery\.NamedQueryId | string |  `athena named query` 
-action\_result\.data\.\*\.NamedQuery\.QueryString | string |  `athena query` 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string | 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string | 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string | 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string | 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string | 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric | 
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string | 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric | 
-action\_result\.summary\.num\_queries | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
-action\_result\.parameter\.credentials | string |  `aws credentials`   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.data.\*.NamedQuery.Database | string |  |   sampledb 
+action_result.data.\*.NamedQuery.Description | string |  |   Sample query to get the top 10 airports with the most number of departures since 2000 
+action_result.data.\*.NamedQuery.Name | string |  |   Flights Select Query 
+action_result.data.\*.NamedQuery.NamedQueryId | string |  `athena named query`  |   1234abcd-12ab-ab12-ab12-123456abcdef 
+action_result.data.\*.NamedQuery.QueryString | string |  `athena query`  |   SELECT origin, count(\*) AS total_departures
+FROM
+test_table
+WHERE year >= '2000'
+GROUP BY origin
+ORDER BY total_departures DESC
+LIMIT 10; 
+action_result.data.\*.ResponseMetadata.HTTPHeaders.connection | string |  |   keep-alive 
+action_result.data.\*.ResponseMetadata.HTTPHeaders.content-length | string |  |   389 
+action_result.data.\*.ResponseMetadata.HTTPHeaders.content-type | string |  |   application/x-amz-json-1.1 
+action_result.data.\*.ResponseMetadata.HTTPHeaders.date | string |  |   Tue, 03 Oct 2017 23:24:08 GMT  Tue, 03 Oct 2017 23:29:58 GMT 
+action_result.data.\*.ResponseMetadata.HTTPHeaders.x-amzn-requestid | string |  |   1234abcd-12ab-ab12-ab12-123456abcdef 
+action_result.data.\*.ResponseMetadata.HTTPStatusCode | numeric |  |   200 
+action_result.data.\*.ResponseMetadata.RequestId | string |  |   1234abcd-12ab-ab12-ab12-123456abcdef 
+action_result.data.\*.ResponseMetadata.RetryAttempts | numeric |  |   0 
+action_result.summary.num_queries | numeric |  |   7 
+action_result.message | string |  |   Num queries: 7 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
+action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='}   
 
 ## action: 'run query'
 Run a named query on Athena
@@ -110,28 +116,28 @@ Run a named query on Athena
 Type: **investigate**  
 Read only: **True**
 
-The <b>query</b> parameter can take either a named query ID, or a query string\.<br><br>If the <b>database</b> parameter is not included, the query will run on the default database configured on Athena\.<br><br>The AWS API requires Athena query results be stored in a location on S3\. Use the <b>s3\_location</b> parameter to specify this location\.<br><br>To encypt the files containing the results, specify the desired encryption scheme with the <b>encryption</b> parameter\. If the given encryption scheme requires a KMS key, the action will use the <b>kms\_key</b> app configuration parameter\.
+The <b>query</b> parameter can take either a named query ID, or a query string.<br><br>If the <b>database</b> parameter is not included, the query will run on the default database configured on Athena.<br><br>The AWS API requires Athena query results be stored in a location on S3. Use the <b>s3_location</b> parameter to specify this location.<br><br>To encypt the files containing the results, specify the desired encryption scheme with the <b>encryption</b> parameter. If the given encryption scheme requires a KMS key, the action will use the <b>kms_key</b> app configuration parameter.
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **query** |  required  | Query to run | string |  `athena query`  `athena named query` 
 **database** |  optional  | Database to run query on | string | 
-**s3\_location** |  required  | S3 location to save results | string | 
+**s3_location** |  required  | S3 location to save results | string | 
 **encryption** |  optional  | Encyption scheme of S3 location | string | 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.database | string | 
-action\_result\.parameter\.encryption | string | 
-action\_result\.parameter\.query | string |  `athena query`  `athena named query` 
-action\_result\.parameter\.s3\_location | string | 
-action\_result\.data\.\*\.\*\.VarCharValue | string | 
-action\_result\.summary\.num\_rows | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
-action\_result\.parameter\.credentials | string |  `aws credentials` 
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.database | string |  |   sampledb 
+action_result.parameter.encryption | string |  |   SSE_S3 
+action_result.parameter.query | string |  `athena query`  `athena named query`  |   1234abcd-12ab-ab12-ab12-123456abcdef 
+action_result.parameter.s3_location | string |  |   s3://test-bucket/test-queries  s3://test-bucket/test-queries/kms_encrypt 
+action_result.data.\*.\*.VarCharValue | string |  |   os 
+action_result.summary.num_rows | numeric |  |   0 
+action_result.message | string |  |   Num rows: 0 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
+action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} 
