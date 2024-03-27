@@ -6,7 +6,7 @@ Connector Version: 2.2.8
 Product Vendor: AWS  
 Product Name: Athena  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 6.1.1  
+Minimum Product Version: 4.9.39220  
 
 This app supports investigative actions on AWS Athena
 
