@@ -237,7 +237,7 @@ class AthenaConnector(BaseConnector):
         reg_exp = re.compile('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$')
 
         if reg_exp.match(query.lower()):
-            
+
             self.debug_print("Making boto3 call to get named query")
             ret_val, query_json = self._make_boto_call(action_result, 'get_named_query', NamedQueryId=query)
             if (phantom.is_fail(ret_val)):
