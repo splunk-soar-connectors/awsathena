@@ -14,7 +14,7 @@
     "utctime_updated": "2022-01-07T22:02:43.000000Z",
     "package_name": "phantom_athena",
     "main_module": "athena_connector.py",
-    "min_phantom_version": "6.1.1",
+    "min_phantom_version": "4.9.39220",
     "fips_compliant": true,
     "python_version": "3",
     "latest_tested_versions": [

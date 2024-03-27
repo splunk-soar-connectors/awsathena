@@ -179,10 +179,12 @@ class AthenaConnector(BaseConnector):
     def _handle_list_queries(self, param):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
 
+        self.debug_print("Making boto3 call to get list of named queries")
         ret_val, resp_json = self._make_boto_call(action_result, 'list_named_queries')
         if (phantom.is_fail(ret_val)):
             return ret_val
@@ -235,7 +237,8 @@ class AthenaConnector(BaseConnector):
         reg_exp = re.compile('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$')
 
         if reg_exp.match(query.lower()):
-
+            
+            self.debug_print("Making boto3 call to get named query")
             ret_val, query_json = self._make_boto_call(action_result, 'get_named_query', NamedQueryId=query)
             if (phantom.is_fail(ret_val)):
                 return ret_val
