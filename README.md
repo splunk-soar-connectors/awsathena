@@ -2,7 +2,7 @@
 # AWS Athena
 
 Publisher: Splunk  
-Connector Version: 2.2.8  
+Connector Version: 2.2.7  
 Product Vendor: AWS  
 Product Name: Athena  
 Product Version Supported (regex): ".\*"  
