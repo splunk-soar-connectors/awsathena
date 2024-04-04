@@ -1,6 +1,6 @@
 # File: athena_connector.py
 #
-# Copyright (c) 2017-2021 Splunk Inc.
+# Copyright (c) 2017-2024 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -179,10 +179,12 @@ class AthenaConnector(BaseConnector):
     def _handle_list_queries(self, param):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
 
+        self.debug_print("Making boto3 call to get list of named queries")
         ret_val, resp_json = self._make_boto_call(action_result, 'list_named_queries')
         if (phantom.is_fail(ret_val)):
             return ret_val
@@ -236,6 +238,7 @@ class AthenaConnector(BaseConnector):
 
         if reg_exp.match(query.lower()):
 
+            self.debug_print("Making boto3 call to get named query")
             ret_val, query_json = self._make_boto_call(action_result, 'get_named_query', NamedQueryId=query)
             if (phantom.is_fail(ret_val)):
                 return ret_val
@@ -327,7 +330,7 @@ if __name__ == '__main__':
 
     if (len(sys.argv) < 2):
         print("No test json specified as input")
-        exit(0)
+        sys.exit(0)
 
     with open(sys.argv[1]) as f:
         in_json = f.read()
@@ -339,4 +342,4 @@ if __name__ == '__main__':
         ret_val = connector._handle_action(json.dumps(in_json), None)
         print(json.dumps(json.loads(ret_val), indent=4))
 
-    exit(0)
+    sys.exit(0)
