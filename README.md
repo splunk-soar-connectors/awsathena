@@ -2,11 +2,11 @@
 # AWS Athena
 
 Publisher: Splunk  
-Connector Version: 2.2.7  
+Connector Version: 2.3.0  
 Product Vendor: AWS  
 Product Name: Athena  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 4.9.39220  
+Minimum Product Version: 6.2.1  
 
 This app supports investigative actions on AWS Athena
 
@@ -108,7 +108,7 @@ action_result.summary.num_queries | numeric |  |   7
 action_result.message | string |  |   Num queries: 7 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
-action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test sesstion access token', 'SessionToken': 'test sesstion token'}  # pragma: allowlist secret
+action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}   
 
 ## action: 'run query'
 Run a named query on Athena
@@ -140,4 +140,4 @@ action_result.summary.num_rows | numeric |  |   0
 action_result.message | string |  |   Num rows: 0 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
-action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test sesstion access token', 'SessionToken': 'test sesstion token'}  # pragma: allowlist secret
+action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'} 
