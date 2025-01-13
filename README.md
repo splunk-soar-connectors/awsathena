@@ -6,15 +6,16 @@ Connector Version: 2.3.0
 Product Vendor: AWS  
 Product Name: Athena  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 6.2.1  
+Minimum Product Version: 6.3.0  
 
 This app supports investigative actions on AWS Athena
 
 [comment]: # " File: README.md"
-[comment]: # "  Copyright (c) 2017-2024 Splunk Inc."
-[comment]: # ""
+[comment]: # "  Copyright (c) 2017-2025 Splunk Inc."
+[comment]: #
 [comment]: # "  Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)"
-[comment]: # ""
+[comment]: #
+
 ## Asset Configuration
 
 There are two ways to configure an AWS Athena asset. The first is to configure the **access_key** ,
@@ -22,8 +23,8 @@ There are two ways to configure an AWS Athena asset. The first is to configure t
 an EC2 instance, the **use_role** checkbox can be checked instead. This will allow the role that is
 attached to the instance to be used. Please see the [AWS EC2 and IAM
 documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html)
-for more information.  
-  
+for more information.
+
 This app also requires some integration with AWS S3. Query results will be stored in a folder on S3
 specified during a query action. These results can be encrypted using various encryption schemes,
 some of which require a KMS key. This KMS key should be provided when configuring the asset and must
@@ -108,7 +109,7 @@ action_result.summary.num_queries | numeric |  |   7
 action_result.message | string |  |   Num queries: 7 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
-action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}   
+action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}  # pragma: allowlist secret
 
 ## action: 'run query'
 Run a named query on Athena
@@ -140,4 +141,4 @@ action_result.summary.num_rows | numeric |  |   0
 action_result.message | string |  |   Num rows: 0 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
-action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'} 
+action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}  # pragma: allowlist secret

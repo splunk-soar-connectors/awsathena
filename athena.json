@@ -9,12 +9,12 @@
     "product_name": "Athena",
     "product_version_regex": ".*",
     "publisher": "Splunk",
-    "license": "Copyright (c) 2017-2024 Splunk Inc.",
+    "license": "Copyright (c) 2017-2025 Splunk Inc.",
     "app_version": "2.3.0",
     "utctime_updated": "2022-01-07T22:02:43.000000Z",
     "package_name": "phantom_athena",
     "main_module": "athena_connector.py",
-    "min_phantom_version": "6.2.1",
+    "min_phantom_version": "6.3.0",
     "fips_compliant": true,
     "python_version": "3",
     "latest_tested_versions": [
@@ -72,6 +72,7 @@
                 "ap-southeast-2",
                 "ap-southeast-3",
                 "ap-southeast-4",
+                "ap-southeast-5",
                 "ca-central-1",
                 "ca-west-1",
                 "eu-central-1",
@@ -277,7 +278,7 @@
                     "data_path": "action_result.parameter.credentials",
                     "data_type": "string",
                     "example_values": [
-                        "{'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}"
+                        "{'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}"
                     ],
                     "contains": [
                         "aws credentials"
@@ -423,7 +424,7 @@
                     "data_path": "action_result.parameter.credentials",
                     "data_type": "string",
                     "example_values": [
-                        "{'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}"
+                        "{'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}"
                     ],
                     "contains": [
                         "aws credentials"

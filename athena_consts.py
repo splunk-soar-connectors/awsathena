@@ -1,6 +1,6 @@
 # File: athena_consts.py
 #
-# Copyright (c) 2017-2024 Splunk Inc.
+# Copyright (c) 2017-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
-ATHENA_JSON_ACCESS_KEY = 'access_key'
-ATHENA_JSON_SECRET_KEY = 'secret_key'  # pragma: allowlist secret
+ATHENA_JSON_ACCESS_KEY = "access_key"
+ATHENA_JSON_SECRET_KEY = "secret_key"  # pragma: allowlist secret
 
 ATHENA_BAD_ASSET_CONFIG_MSG = "Please provide access keys or select assume role check box in asset configuration"
