@@ -43,8 +43,8 @@ actions within a playbook. For more information, please see the [AWS Identity an
 documentation](https://docs.aws.amazon.com/iam/index.html) .
 
 
-### Configuration Variables
-The below configuration variables are required for this Connector to operate.  These variables are specified when configuring a Athena asset in SOAR.
+### Configuration variables
+This table lists the configuration variables required to operate AWS Athena. These variables are specified when configuring a Athena asset in Splunk SOAR.
 
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
@@ -109,7 +109,7 @@ action_result.summary.num_queries | numeric |  |   7
 action_result.message | string |  |   Num queries: 7 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
-action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}  # pragma: allowlist secret
+action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}   
 
 ## action: 'run query'
 Run a named query on Athena
@@ -141,4 +141,4 @@ action_result.summary.num_rows | numeric |  |   0
 action_result.message | string |  |   Num rows: 0 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
-action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}  # pragma: allowlist secret
+action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'} 
