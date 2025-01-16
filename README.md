@@ -43,8 +43,8 @@ actions within a playbook. For more information, please see the [AWS Identity an
 documentation](https://docs.aws.amazon.com/iam/index.html) .
 
 
-### Configuration variables
-This table lists the configuration variables required to operate AWS Athena. These variables are specified when configuring a Athena asset in Splunk SOAR.
+### Configuration Variables
+The below configuration variables are required for this Connector to operate.  These variables are specified when configuring a Athena asset in SOAR.
 
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
@@ -109,7 +109,7 @@ action_result.summary.num_queries | numeric |  |   7
 action_result.message | string |  |   Num queries: 7 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
-action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'}   
+action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='}  # pragma: allowlist secret
 
 ## action: 'run query'
 Run a named query on Athena
@@ -141,4 +141,4 @@ action_result.summary.num_rows | numeric |  |   0
 action_result.message | string |  |   Num rows: 0 
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
-action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'test session access token', 'SessionToken': 'test session token'} 
+action_result.parameter.credentials | string |  `aws credentials`  |   {'AccessKeyId': 'TESTSJL6ZZZZZ3M7TEST', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='}  # pragma: allowlist secret
