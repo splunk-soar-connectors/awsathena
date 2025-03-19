@@ -36,11 +36,9 @@ class RetVal(tuple):
 
 
 class AthenaConnector(BaseConnector):
-
     def __init__(self):
-
         # Call the BaseConnectors init first
-        super(AthenaConnector, self).__init__()
+        super().__init__()
 
         self._state = None
         self._client = None
@@ -51,7 +49,6 @@ class AthenaConnector(BaseConnector):
         self._proxy = None
 
     def initialize(self):
-
         self._state = self.load_state()
 
         config = self.get_config()
@@ -88,19 +85,16 @@ class AthenaConnector(BaseConnector):
         return phantom.APP_SUCCESS
 
     def finalize(self):
-
         # Save the state, this data is saved accross actions and app upgrades
         self.save_state(self._state)
         return phantom.APP_SUCCESS
 
     def _handle_get_ec2_role(self):
-
         session = Session(region_name=self._region)
         credentials = session.get_credentials()
         return credentials
 
     def _create_client(self, action_result, param=None):
-
         boto_config = None
         if self._proxy:
             boto_config = Config(proxies=self._proxy)
@@ -118,12 +112,10 @@ class AthenaConnector(BaseConnector):
             except Exception as e:
                 return action_result.set_status(
                     phantom.APP_ERROR,
-                    "Failed to get temporary credentials: {0}".format(e),
+                    f"Failed to get temporary credentials: {e}",
                 )
         try:
-
             if self._access_key and self._secret_key:
-
                 self.debug_print("Creating boto3 client with API keys")
 
                 self._client = client(
@@ -136,23 +128,21 @@ class AthenaConnector(BaseConnector):
                 )
 
             else:
-
                 self.debug_print("Creating boto3 client without API keys")
 
                 self._client = client("athena", region_name=self._region, config=boto_config)
 
         except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, "Could not create boto3 client: {0}".format(e))
+            return action_result.set_status(phantom.APP_ERROR, f"Could not create boto3 client: {e}")
 
         return phantom.APP_SUCCESS
 
     def _make_boto_call(self, action_result, method, **kwargs):
-
         try:
             boto_func = getattr(self._client, method)
         except AttributeError:
             return RetVal(
-                action_result.set_status(phantom.APP_ERROR, "Invalid method: {0}".format(method)),
+                action_result.set_status(phantom.APP_ERROR, f"Invalid method: {method}"),
                 None,
             )
 
@@ -167,7 +157,6 @@ class AthenaConnector(BaseConnector):
         return phantom.APP_SUCCESS, resp_json
 
     def _handle_test_connectivity(self, param):
-
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -183,9 +172,8 @@ class AthenaConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS)
 
     def _handle_list_queries(self, param):
-
         action_result = self.add_action_result(ActionResult(dict(param)))
-        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+        self.save_progress(f"In action handler for: {self.get_action_identifier()}")
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -197,7 +185,6 @@ class AthenaConnector(BaseConnector):
 
         count = 0
         for query_id in resp_json.get("NamedQueryIds", []):
-
             ret_val, query_json = self._make_boto_call(action_result, "get_named_query", NamedQueryId=query_id)
             if phantom.is_fail(ret_val):
                 return ret_val
@@ -210,8 +197,7 @@ class AthenaConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS)
 
     def _handle_run_query(self, param):
-
-        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+        self.save_progress(f"In action handler for: {self.get_action_identifier()}")
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         query = param["query"].strip()
@@ -223,13 +209,12 @@ class AthenaConnector(BaseConnector):
         if not s3.startswith("s3://"):
             return action_result.set_status(
                 phantom.APP_ERROR,
-                "The S3 location does not appear to be correctly formatted. " "It should start with 's3://'",
+                "The S3 location does not appear to be correctly formatted. It should start with 's3://'",
             )
 
         location_json = {"OutputLocation": s3}
 
         if encryption:
-
             encrypt_config = {}
             encrypt_config["EncryptionOption"] = encryption
             location_json["EncryptionConfiguration"] = encrypt_config
@@ -248,7 +233,6 @@ class AthenaConnector(BaseConnector):
         reg_exp = re.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 
         if reg_exp.match(query.lower()):
-
             self.debug_print("Making boto3 call to get named query")
             ret_val, query_json = self._make_boto_call(action_result, "get_named_query", NamedQueryId=query)
             if phantom.is_fail(ret_val):
@@ -257,7 +241,7 @@ class AthenaConnector(BaseConnector):
             query_str = query_json.get("NamedQuery", {}).get("QueryString")
 
             if not query:
-                return action_result.set_status("Could not find named query - {0}".format(query))
+                return action_result.set_status(f"Could not find named query - {query}")
 
             query = query_str
 
@@ -289,7 +273,6 @@ class AthenaConnector(BaseConnector):
             )
 
         for i in range(0, 60):
-
             ret_val, response = self._make_boto_call(action_result, "get_query_execution", QueryExecutionId=execution_id)
             if phantom.is_fail(ret_val):
                 return ret_val
@@ -304,7 +287,7 @@ class AthenaConnector(BaseConnector):
             if status == "FAILED":
                 return action_result.set_status(
                     phantom.APP_ERROR,
-                    "Query execution failed: {0}".format(
+                    "Query execution failed: {}".format(
                         response.get("QueryExecution", {}).get("Status", {}).get("StateChangeReason", "Unknown error")
                     ),
                 )
@@ -333,7 +316,6 @@ class AthenaConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS)
 
     def handle_action(self, param):
-
         ret_val = phantom.APP_SUCCESS
 
         # Get the action that we are supposed to execute for this App Run
@@ -352,7 +334,6 @@ class AthenaConnector(BaseConnector):
 
 
 if __name__ == "__main__":
-
     import sys
 
     # import pudb

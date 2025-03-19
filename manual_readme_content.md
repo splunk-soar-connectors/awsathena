@@ -1,9 +1,3 @@
-[comment]: # " File: README.md"
-[comment]: # "  Copyright (c) 2017-2025 Splunk Inc."
-[comment]: #
-[comment]: # "  Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)"
-[comment]: #
-
 ## Asset Configuration
 
 There are two ways to configure an AWS Athena asset. The first is to configure the **access_key** ,
