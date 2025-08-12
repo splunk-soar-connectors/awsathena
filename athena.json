@@ -16,7 +16,7 @@
     "main_module": "athena_connector.py",
     "min_phantom_version": "6.3.0",
     "fips_compliant": true,
-    "python_version": "3",
+    "python_version": "3.9, 3.13",
     "latest_tested_versions": [
         "Cloud API, Jan 16, 2025"
     ],
