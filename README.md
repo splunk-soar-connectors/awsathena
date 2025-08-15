@@ -1,9 +1,9 @@
 # AWS Athena
 
-Publisher: Splunk \
-Connector Version: 2.3.0 \
-Product Vendor: AWS \
-Product Name: Athena \
+Publisher: Splunk <br>
+Connector Version: 2.3.0 <br>
+Product Vendor: AWS <br>
+Product Name: Athena <br>
 Minimum Product Version: 6.3.0
 
 This app supports investigative actions on AWS Athena
@@ -48,15 +48,15 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration \
-[list queries](#action-list-queries) - List named queries on Athena \
+[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration <br>
+[list queries](#action-list-queries) - List named queries on Athena <br>
 [run query](#action-run-query) - Run a named query on Athena
 
 ## action: 'test connectivity'
 
 Validate the asset configuration for connectivity using supplied configuration
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -71,7 +71,7 @@ No Output
 
 List named queries on Athena
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -108,7 +108,7 @@ action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId
 
 Run a named query on Athena
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 The <b>query</b> parameter can take either a named query ID, or a query string.<br><br>If the <b>database</b> parameter is not included, the query will run on the default database configured on Athena.<br><br>The AWS API requires Athena query results be stored in a location on S3. Use the <b>s3_location</b> parameter to specify this location.<br><br>To encypt the files containing the results, specify the desired encryption scheme with the <b>encryption</b> parameter. If the given encryption scheme requires a KMS key, the action will use the <b>kms_key</b> app configuration parameter.
