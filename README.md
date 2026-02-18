@@ -1,7 +1,7 @@
 # AWS Athena
 
 Publisher: Splunk <br>
-Connector Version: 2.3.0 <br>
+Connector Version: 2.3.1 <br>
 Product Vendor: AWS <br>
 Product Name: Athena <br>
 Minimum Product Version: 6.3.0
