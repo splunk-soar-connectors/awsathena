@@ -1,6 +1,6 @@
 # File: athena_connector.py
 #
-# Copyright (c) 2017-2025 Splunk Inc.
+# Copyright (c) 2017-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -99,38 +99,59 @@ class AthenaConnector(BaseConnector):
         if self._proxy:
             boto_config = Config(proxies=self._proxy)
 
+        access_key = self._access_key
+        secret_key = self._secret_key
+        session_token = self._session_token
+
         # Try getting and using temporary assume role credentials from parameters
-        temp_credentials = dict()
         if param and "credentials" in param:
             try:
                 temp_credentials = ast.literal_eval(param["credentials"])
-                self._access_key = temp_credentials.get("AccessKeyId", "")
-                self._secret_key = temp_credentials.get("SecretAccessKey", "")
-                self._session_token = temp_credentials.get("SessionToken", "")
-
-                self.save_progress("Using temporary assume role credentials for action")
-            except Exception as e:
+            except (SyntaxError, TypeError, ValueError):
                 return action_result.set_status(
                     phantom.APP_ERROR,
-                    f"Failed to get temporary credentials: {e}",
+                    "Failed to get temporary credentials: credentials must be a dictionary",
                 )
+
+            if not isinstance(temp_credentials, dict):
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Failed to get temporary credentials: credentials must be a dictionary",
+                )
+
+            access_key = temp_credentials.get("AccessKeyId")
+            secret_key = temp_credentials.get("SecretAccessKey")
+            session_token = temp_credentials.get("SessionToken")
+            if not (isinstance(access_key, str) and access_key.strip() and isinstance(secret_key, str) and secret_key.strip()):
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Failed to get temporary credentials: AccessKeyId and SecretAccessKey are required",
+                )
+
+            if session_token is not None and not isinstance(session_token, str):
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Failed to get temporary credentials: SessionToken must be a string",
+                )
+
+            self.save_progress("Using temporary assume role credentials for action")
+
+        if not (access_key and secret_key):
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                "Could not create boto3 client: AWS credentials are unavailable",
+            )
+
         try:
-            if self._access_key and self._secret_key:
-                self.debug_print("Creating boto3 client with API keys")
-
-                self._client = client(
-                    "athena",
-                    region_name=self._region,
-                    aws_access_key_id=self._access_key,
-                    aws_secret_access_key=self._secret_key,
-                    aws_session_token=self._session_token,
-                    config=boto_config,
-                )
-
-            else:
-                self.debug_print("Creating boto3 client without API keys")
-
-                self._client = client("athena", region_name=self._region, config=boto_config)
+            self.debug_print("Creating boto3 client with API keys")
+            self._client = client(
+                "athena",
+                region_name=self._region,
+                aws_access_key_id=access_key,
+                aws_secret_access_key=secret_key,
+                aws_session_token=session_token,
+                config=boto_config,
+            )
 
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, f"Could not create boto3 client: {e}")
@@ -162,7 +183,7 @@ class AthenaConnector(BaseConnector):
         if not self._create_client(action_result, param):
             return action_result.get_status()
 
-        ret_val, resp_json = self._make_boto_call(action_result, "list_named_queries")
+        ret_val, _resp_json = self._make_boto_call(action_result, "list_named_queries")
 
         if phantom.is_fail(ret_val):
             self.save_progress("Test Connectivity Failed")

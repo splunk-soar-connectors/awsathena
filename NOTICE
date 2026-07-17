@@ -1,5 +1,5 @@
 Splunk SOAR App: AWS Athena
-Copyright (c) 2017-2025 Splunk Inc.
+Copyright (c) 2017-2026 Splunk Inc.
 Third Party Software Attributions:
 
 @@@@============================================================================
@@ -440,4 +440,3 @@ was not distributed with this file, You can obtain
 one at http://mozilla.org/MPL/2.0/.
 
 ***** END LICENSE BLOCK *****
-
