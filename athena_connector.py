@@ -48,6 +48,10 @@ class AthenaConnector(BaseConnector):
         self._session_token = None
         self._proxy = None
 
+    @staticmethod
+    def _sanitize_action_parameters(param):
+        return {key: value for key, value in param.items() if key != "credentials"}
+
     def initialize(self):
         self._state = self.load_state()
 
@@ -178,7 +182,7 @@ class AthenaConnector(BaseConnector):
         return phantom.APP_SUCCESS, resp_json
 
     def _handle_test_connectivity(self, param):
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -193,7 +197,7 @@ class AthenaConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS)
 
     def _handle_list_queries(self, param):
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
         self.save_progress(f"In action handler for: {self.get_action_identifier()}")
 
         if not self._create_client(action_result, param):
@@ -219,7 +223,7 @@ class AthenaConnector(BaseConnector):
 
     def _handle_run_query(self, param):
         self.save_progress(f"In action handler for: {self.get_action_identifier()}")
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         query = param["query"].strip()
         s3 = param["s3_location"]
