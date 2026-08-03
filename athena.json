@@ -145,13 +145,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.credentials",
-                    "data_type": "password",
-                    "contains": [
-                        "aws credentials"
-                    ]
-                },
-                {
                     "data_path": "action_result.data.*.NamedQuery.Database",
                     "data_type": "string",
                     "example_values": [
@@ -347,13 +340,6 @@
                     "example_values": [
                         "success",
                         "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.credentials",
-                    "data_type": "password",
-                    "contains": [
-                        "aws credentials"
                     ]
                 },
                 {

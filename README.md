@@ -85,7 +85,6 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.credentials | password | `aws credentials` | |
 action_result.data.\*.NamedQuery.Database | string | | sampledb |
 action_result.data.\*.NamedQuery.Description | string | | Sample query to get the top 10 airports with the most number of departures since 2000 |
 action_result.data.\*.NamedQuery.Name | string | | Flights Select Query |
@@ -128,7 +127,6 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.credentials | password | `aws credentials` | |
 action_result.parameter.database | string | | sampledb |
 action_result.parameter.encryption | string | | SSE_S3 |
 action_result.parameter.query | string | `athena query` `athena named query` | 1234abcd-12ab-ab12-ab12-123456abcdef |
